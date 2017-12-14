@@ -18,4 +18,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'(^login/|^signup/|^question/|^ask/|^popular/|^new/)'), include('qa.urls')),
 ]
