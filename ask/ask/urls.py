@@ -16,12 +16,8 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-"""urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'(^login/|^signup/|^question/|^ask/|^popular/|^new/)'), include('qa.urls')),
-]
-"""
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^login/', include('qa.urls')),
+    url(r'(^$|^login/|^signup/|^question/|^ask/|^popular/|^new/)', include('qa.urls')),
 ]
+
