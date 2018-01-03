@@ -26,7 +26,7 @@ urlpatterns = [
 """
 
 from django.conf.urls import include, url
-from ask import views
+from qa import views
 
 urlpatterns = [
     url(r'^$', views.main_view, name='main_view'),
