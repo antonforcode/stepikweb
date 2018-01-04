@@ -20,3 +20,4 @@ def main_view(request):
         page = paginator.page(1)
     except EmptyPage:
         page = paginator.page(paginator.num_pages)
+    return render(request, 'main_view.html', )
