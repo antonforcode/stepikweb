@@ -25,7 +25,7 @@ def main_view(request):
 def popular_view(request):
     page_number = request.GET.get('page', 1)
     popular_questions = Question.objects.popular()
-    paginator = Paginator(new_questions, 10)
+    paginator = Paginator(popular_questions, 10)
     try:
         page = paginator.page(page_number)
     except PageNotAnInteger:
