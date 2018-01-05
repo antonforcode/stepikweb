@@ -20,3 +20,15 @@ def main_view(request):
     except EmptyPage:
         page = paginator.page(paginator.num_pages)
     return render(request, 'qa/main_view.html', {'questions' : page.object_list})
+
+def popular_view(request):
+    page_number = request.GET.get('page', 1)
+    popular_questions = Question.objects.popular()
+    paginator = Paginator(new_questions, 10)
+    try:
+        page = paginator.page(page_number)
+    except PageNotAnInteger:
+        page = paginator.page(1)
+    except EmptyPage:
+        page = paginator.page(paginator.num_pages)
+    return render(request, 'qa/main_view.html', {'questions' : page.object_list})
