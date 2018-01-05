@@ -8,6 +8,7 @@ def test(request, *args, **kwargs):
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
+from .models import Question
 
 def main_view(request):
     page_number = request.GET.get('page', 1)
