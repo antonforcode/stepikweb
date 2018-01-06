@@ -37,4 +37,4 @@ def popular_view(request):
 def question_view(request, q_number):
     question = get_object_or_404(Question, pk=q_number)
     answers = question.answer_set.all()
-    return render(request, 'qa/main_view.html', {'questions' : page.object_list})
+    return render(request, 'qa/question_view.html', {'question' : question, 'answers' : answers})
