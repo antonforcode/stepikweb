@@ -7,7 +7,7 @@ def test(request, *args, **kwargs):
 """
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from .models import Question
 
 def main_view(request):
@@ -32,4 +32,9 @@ def popular_view(request):
         page = paginator.page(1)
     except EmptyPage:
         page = paginator.page(paginator.num_pages)
+    return render(request, 'qa/main_view.html', {'questions' : page.object_list})
+
+def question_view(request, q_number):
+    question = get_object_or_404(Question, pk=q_number)
+    answers = question.answer_set.all()
     return render(request, 'qa/main_view.html', {'questions' : page.object_list})
