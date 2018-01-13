@@ -45,8 +45,7 @@ def ask_view(request):
         form = AskForm(request.POST)
         if form.is_valid():
             question = form.save()
-            question_id = question.id
-            return HttpResponseRedirect("/question/{}/".format(question_id))
+            return HttpResponseRedirect("/question/{}/".format(question.id))
         else:
             form = AskForm()
-        return render(request, '', {'form': form})
+        return render(request, 'qa/ask_view.html', {'form': form})
