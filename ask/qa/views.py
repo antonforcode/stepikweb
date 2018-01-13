@@ -38,3 +38,5 @@ def question_view(request, q_number):
     question = get_object_or_404(Question, pk=q_number)
     answers = question.answer_set.all()
     return render(request, 'qa/question_view.html', {'question' : question, 'answers' : answers})
+
+def ask_view(request):
