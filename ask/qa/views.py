@@ -10,6 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404, render
 from .models import Question
 from django.http import HttpResponseRedirect
+from .forms import AskForm
 
 def main_view(request):
     page_number = request.GET.get('page', 1)
@@ -46,6 +47,6 @@ def ask_view(request):
         if form.is_valid():
             question = form.save()
             return HttpResponseRedirect("/question/{}/".format(question.id))
-        else:
-            form = AskForm()
-        return render(request, 'qa/ask_view.html', {'form': form})
+    else:
+        form = AskForm()
+    return render(request, 'qa/ask_view.html', {'form': form})
