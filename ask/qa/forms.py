@@ -7,9 +7,10 @@ class AskForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea)
 
     def clean(self):
-        title = self.cleaned_data['title']
-        text = self.cleaned_data['text']
-        if "script" in title and "script" in text:
+        text = self.cleaned_data.get('text')
+        if not text:
+            raise forms.ValidationError('Need text')
+        if "script" in text:
             raise forms.ValidationError('Incorrect text')
 
     def save(self):
@@ -24,9 +25,12 @@ class AnswerForm(forms.Form):
     question = forms.IntegerField(widget=forms.HiddenInput())
 
     def clean(self):
-        text = self.cleaned_data['text']
+        text = self.cleaned_data.get('text')
+        if not text:
+            raise forms.ValidationError('Need text')
         if "script" in text:
             raise forms.ValidationError('Incorrect text')
+
 
     def save(self):
         self.cleaned_data['author_id'] = '1'
