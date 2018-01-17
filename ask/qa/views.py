@@ -40,14 +40,14 @@ def popular_view(request):
 
 
 def question_view(request, q_number):
+    question = get_object_or_404(Question, pk=q_number)
+    answers = question.answer_set.all()
     if request.method == "POST":
         form = AnswerForm(request.POST)
         if form.is_valid():
             answer = form.save()
             return HttpResponseRedirect("/question/{}/".format(q_number))
     else:
-        question = get_object_or_404(Question, pk=q_number)
-        answers = question.answer_set.all()
         form = AnswerForm(initial={'question' : q_number})
     return render(request, 'qa/question_view.html', {'question' : question, 'answers' : answers, 'form': form})
 
