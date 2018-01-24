@@ -10,7 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404, render
 from .models import Question
 from django.http import HttpResponseRedirect
-from .forms import AskForm, AnswerForm
+from .forms import AskForm, AnswerForm, SignupForm
 
 
 def main_view(request):
@@ -61,3 +61,14 @@ def ask_view(request):
     else:
         form = AskForm()
     return render(request, 'qa/ask_view.html', {'form': form})
+
+
+def signup_view(request):
+    if request.method == "POST":
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            return HttpResponseRedirect("/")
+    else:
+        form = SignupForm()
+    return render(request, 'qa/signup_view.html', {'form': form})

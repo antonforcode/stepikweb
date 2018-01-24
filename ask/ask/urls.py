@@ -35,4 +35,5 @@ urlpatterns = [
     url(r'^popular/$', views.popular_view, name='popular_view'),
     url(r'^question/(?P<q_number>\d+)/', views.question_view, name='question_view'),
     url(r'^ask/$', views.ask_view, name='ask_view'),
+    url(r'^signup/$', views.signup_view, name='signup_view'),
 ]

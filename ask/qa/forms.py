@@ -45,7 +45,11 @@ class AnswerForm(forms.Form):
 class SignupForm(forms.Form):
     username = forms.CharField(max_length=100)
     email = forms.EmailField()
-    password = forms.CharField(widget=PasswordInput())
+    password = forms.CharField(widget=forms.PasswordInput())
 
-    def save():
-        user = User.objects.create_user(username, email, password)
+    def save(self):
+        try:
+            user = User.objects.create_user(**self.cleaned_data)
+            return user
+        except:
+            pass

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Signup page</title>
+</head>
+<body>
+  <form class="form-horizontal" method="POST" action="/signup/">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" name="submitBtn">
+  </form>
+</body>
+</html>
