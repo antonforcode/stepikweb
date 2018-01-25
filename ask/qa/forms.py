@@ -47,9 +47,14 @@ class SignupForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput())
 
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError('Enter another username')
+        return username
+
     def save(self):
-        try:
-            user = User.objects.create_user(**self.cleaned_data)
-            return user
-        except:
-            pass
+        user = User.objects.create_user(**self.cleaned_data)
+
+
+

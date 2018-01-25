@@ -11,6 +11,7 @@ from django.shortcuts import get_object_or_404, render
 from .models import Question
 from django.http import HttpResponseRedirect
 from .forms import AskForm, AnswerForm, SignupForm
+from django.contrib.auth import authenticate, login
 
 
 def main_view(request):
@@ -67,7 +68,11 @@ def signup_view(request):
     if request.method == "POST":
         form = SignupForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            login(request, user)
             return HttpResponseRedirect("/")
     else:
         form = SignupForm()
