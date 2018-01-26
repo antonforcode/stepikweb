@@ -10,7 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404, render
 from .models import Question
 from django.http import HttpResponseRedirect
-from .forms import AskForm, AnswerForm, SignupForm
+from .forms import AskForm, AnswerForm, SignupForm, LoginForm
 from django.contrib.auth import authenticate, login
 
 
@@ -76,4 +76,18 @@ def signup_view(request):
             return HttpResponseRedirect("/")
     else:
         form = SignupForm()
+    return render(request, 'qa/signup_view.html', {'form': form})
+
+
+def login_view(request):
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return HttpResponseRedirect("/")
+    else:
+        form = LoginForm()
     return render(request, 'qa/signup_view.html', {'form': form})
