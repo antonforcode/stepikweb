@@ -16,7 +16,7 @@ class AskForm(forms.Form):
             raise forms.ValidationError('Incorrect text')
 
     def save(self):
-        self.cleaned_data['author_id'] = '1'
+        # self.cleaned_data['author_id'] = '1'
         ask = Question(**self.cleaned_data)
         ask.save()
         return ask
@@ -35,7 +35,7 @@ class AnswerForm(forms.Form):
 
 
     def save(self):
-        self.cleaned_data['author_id'] = '1'
+        # self.cleaned_data['author_id'] = '1'
         self.cleaned_data['question_id'] = self.cleaned_data['question']
         del self.cleaned_data['question']
         answer = Answer(**self.cleaned_data)
@@ -63,8 +63,8 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput())
 
     def clean(self):
-        username = self.cleaned_data['username']
-        password = self.cleaned_data['password']
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
         user = authenticate(username=username, password=password)
         if user is None:
             raise forms.ValidationError('Invalid username or password')
