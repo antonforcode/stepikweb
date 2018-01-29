@@ -15,8 +15,8 @@ class AskForm(forms.Form):
         if "script" in text:
             raise forms.ValidationError('Incorrect text')
 
-    def save(self):
-        # self.cleaned_data['author_id'] = '1'
+    def save(self, author_id):
+        self.cleaned_data['author_id'] = author_id
         ask = Question(**self.cleaned_data)
         ask.save()
         return ask
@@ -33,16 +33,15 @@ class AnswerForm(forms.Form):
         if "script" in text:
             raise forms.ValidationError('Incorrect text')
 
-
-    def save(self):
-        # self.cleaned_data['author_id'] = '1'
+    def save(self, author_id):
+        self.cleaned_data['author_id'] = author_id
         self.cleaned_data['question_id'] = self.cleaned_data['question']
         del self.cleaned_data['question']
         answer = Answer(**self.cleaned_data)
         answer.save()
         return answer
 
-
+    
 class SignupForm(forms.Form):
     username = forms.CharField(max_length=100)
     email = forms.EmailField()
