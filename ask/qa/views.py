@@ -45,9 +45,9 @@ def question_view(request, q_number):
     answers = question.answer_set.all()
     if request.method == "POST":
         form = AnswerForm(request.POST)
-        form.author_id = request.user.id
         if form.is_valid():
-            answer = form.save()
+            author_id = request.user.id
+            answer = form.save(author_id)
             return HttpResponseRedirect("/question/{}/".format(q_number))
     else:
         form = AnswerForm(initial={'question' : q_number})
@@ -58,9 +58,8 @@ def ask_view(request):
     if request.method == "POST":
         form = AskForm(request.POST)
         if form.is_valid():
-            question = form.save(commit=False)
-            question.author_id = request.user.id
-            question.save()
+            author_id = request.user.id
+            question = form.save(author_id)
             return HttpResponseRedirect("/question/{}/".format(question.id))
     else:
         form = AskForm()
