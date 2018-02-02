@@ -2,20 +2,30 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Login page</title>
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-3">
   <form method="POST" action="/login/">
     {% csrf_token %}
     {% for field in form %}
 	    <div class="form-group">
 	        {{ field.label_tag }} 
 	        {{ field }}
-			{{ field.errors }}
 	    </div>
 	{% endfor %}
-    <input type="submit" name="submitBtn">
+    {% for error in form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">{{ error }}</div>
+    {% endfor %}
+    <input type="submit" name="submitBtn" class="btn btn-primary">
   </form>
+  </div>
+  </div>
+  </div>
 </body>
 </html>
