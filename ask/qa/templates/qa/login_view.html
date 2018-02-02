@@ -2,12 +2,19 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Signup page</title>
+  <title>Login page</title>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
-  <form class="form-horizontal" method="POST" action="/login/">
+  <form method="POST" action="/login/">
     {% csrf_token %}
-    {{ form.as_p }}
+    {% for field in form %}
+	    <div class="form-group">
+	        {{ field.label_tag }} 
+	        {{ field }}
+			{{ field.errors }}
+	    </div>
+	{% endfor %}
     <input type="submit" name="submitBtn">
   </form>
 </body>
